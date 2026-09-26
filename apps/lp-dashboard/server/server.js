@@ -128,6 +128,15 @@ export function startServer(store, { onShutdown }) {
   store.on("status", (status) => broadcast({ type: "status", status }))
   store.on("wallets", (wallets) => broadcast({ type: "wallets", wallets }))
 
+  // ws가 서버 오류를 wss로 넘기므로 wss에서 받는다.
+  wss.on("error", (error) => {
+    if (error.code === "EADDRINUSE") {
+      // 이미 켜져 있다. 0으로 끝내서 Windows 실행 스크립트가 재시작을 반복하지 않게 한다.
+      log.warn(`포트 ${env.port}에서 이미 대시보드가 실행 중입니다.`)
+      process.exit(0)
+    }
+    throw error
+  })
   server.listen(env.port, "127.0.0.1", () => {
     log.info(`대시보드: http://127.0.0.1:${env.port}`)
   })

@@ -9,7 +9,7 @@
     "build": "vite build",
     "start": "node server/index.js",
     "typecheck": "tsc -p tsconfig.json",
-    "selftest": "node scripts/selftest.js",
+    "selftest": "node --test --test-reporter=spec scripts/selftest.js",
     "verify": "node scripts/verify-addresses.js",
     "pnl": "node scripts/analyze-pnl.js"
   },

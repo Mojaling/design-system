@@ -6,6 +6,7 @@ export const v4PositionManagerAbi = parseAbi([
   "function getPositionLiquidity(uint256 tokenId) view returns (uint128 liquidity)",
   "function poolManager() view returns (address)",
   "function name() view returns (string)",
+  "function ownerOf(uint256 tokenId) view returns (address)",
 ])
 
 export const v4StateViewAbi = parseAbi([
@@ -23,6 +24,7 @@ export const v3PositionManagerAbi = parseAbi([
   "function positions(uint256 tokenId) view returns (uint96 nonce, address operator, address token0, address token1, uint24 fee, int24 tickLower, int24 tickUpper, uint128 liquidity, uint256 feeGrowthInside0LastX128, uint256 feeGrowthInside1LastX128, uint128 tokensOwed0, uint128 tokensOwed1)",
   "function factory() view returns (address)",
   "function name() view returns (string)",
+  "function ownerOf(uint256 tokenId) view returns (address)",
 ])
 
 export const v3IncreaseLiquidityEvent = parseAbiItem(

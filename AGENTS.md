@@ -19,6 +19,9 @@ AI 코딩 에이전트를 위한 작업 안내입니다. 사용자는 한국어�
 | `npm run dev` | 개발 서버 (백엔드 + Vite) |
 | `npm run build` / `npm start` | 화면 빌드 / 대시보드 실행 |
 | `npm run verify` | 컨트랙트 주소 실측 (Alchemy 키 필요) |
+| `npm run pnl -- <체인> <프로토콜> <tokenId>` | 포지션 손익 분석 (Alchemy 키 필요) |
+
+키 없이 화면을 확인하려면 `MOCK=1`로 실행한다(데모 모드, `apps/lp-dashboard/data/mock/` 사용).
 
 ## UI 작업 규칙
 

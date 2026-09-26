@@ -44,14 +44,15 @@ export function chooseQuote(chain, token0, token1) {
 
 const anchors = new Map() // coingeckoId → { usd, at }
 let inflight = null
+let retryAt = 0
 
-/** 오래된 앵커 가격을 새로 받는다. 실패하면 이전 값을 그대로 쓴다. */
+/** 오래된 앵커 가격을 새로 받는다. 실패하면 이전 값을 쓰고, 한동안 다시 묻지 않는다. */
 export async function refreshAnchors() {
   const ids = [...new Set(CHAINS.map((c) => c.native.coingeckoId))]
   const stale = ids.some(
     (id) => !anchors.has(id) || Date.now() - anchors.get(id).at > env.anchorPriceTtlMs
   )
-  if (!stale) return
+  if (!stale || Date.now() < retryAt) return
   inflight ??= (async () => {
     try {
       const url = `https://api.coingecko.com/api/v3/simple/price?ids=${ids.join(",")}&vs_currencies=usd`
@@ -63,6 +64,7 @@ export async function refreshAnchors() {
         if (Number.isFinite(usd) && usd > 0) anchors.set(id, { usd, at: Date.now() })
       }
     } catch (error) {
+      retryAt = Date.now() + env.anchorPriceTtlMs
       log.warn("앵커 가격 갱신 실패:", error.message)
     } finally {
       inflight = null

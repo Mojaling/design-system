@@ -129,6 +129,21 @@ export function isTransientError(error) {
   return false
 }
 
+/** 사용자에게 보여줄 오류 설명 */
+export function describeError(error) {
+  for (let e = error; e; e = e.cause) {
+    const status = e.status ?? e.statusCode
+    if (status === 401 || status === 403) {
+      return `Alchemy가 요청을 거부했습니다(${status}). API 키가 맞는지, Alchemy 앱에서 이 네트워크를 켰는지 확인하세요.`
+    }
+    if (status === 429 || e.code === 429 || e.code === -32005) {
+      return "요청 한도를 넘었습니다(429). 잠시 뒤 자동으로 다시 시도합니다."
+    }
+  }
+  if (isTransientError(error)) return `일시적 오류: ${error.shortMessage ?? error.message}`
+  return error.shortMessage ?? error.message
+}
+
 export class TransientError extends Error {
   constructor(message, options) {
     super(message, options)
@@ -149,9 +164,8 @@ export async function alchemyFetch(url, init) {
   }
   const body = await response.json().catch(() => null)
   if (!response.ok) {
-    const error = new Error(
-      `Alchemy 응답 ${response.status}: ${body?.message ?? body?.error?.message ?? "알 수 없는 오류"}`
-    )
+    const detail = body?.message ?? body?.error?.message
+    const error = new Error(`Alchemy 응답 ${response.status}${detail ? `: ${detail}` : ""}`)
     error.status = response.status
     throw error
   }

@@ -10,7 +10,7 @@ import { discoverTokenIds } from "./services/discovery.js"
 import { ensureMintTimes } from "./services/mintTime.js"
 import { loadStatic, readViews } from "./services/position.js"
 import { refreshAnchors } from "./services/pricing.js"
-import { isTransientError } from "./services/rpc.js"
+import { describeError } from "./services/rpc.js"
 import { createWatcher } from "./services/watcher.js"
 
 const WALLETS_FILE = "wallets.json"
@@ -189,7 +189,7 @@ export class Store extends EventEmitter {
             }
             this.markChain(chain.key, null)
           } catch (error) {
-            const message = `${chain.name} ${protocol.name}: ${error.shortMessage ?? error.message}`
+            const message = `${chain.name} ${protocol.name}: ${describeError(error)}`
             errors.push(message)
             this.markChain(chain.key, message)
             log.warn("탐색 오류 —", message)
@@ -357,12 +357,11 @@ export class Store extends EventEmitter {
       this.markChain(chainKey, null)
     } catch (error) {
       // 일시적 오류든 아니든 블랙리스트에는 넣지 않는다. 마지막 값을 유지하고 표시만 한다.
-      const message = error.shortMessage ?? error.message
-      const kind = isTransientError(error) ? "일시적 오류" : "오류"
-      this.markChain(chainKey, `${kind}: ${message}`)
+      const message = describeError(error)
+      this.markChain(chainKey, message)
       for (const p of entries) {
         if (!p.error && p.view) upserts.push(p.key)
-        p.error = `${kind} — 마지막 값을 표시 중`
+        p.error = `${message} (마지막 값을 표시 중)`
       }
       log.warn(`${chainKey}:${protocolId} 조회 실패 —`, message)
     }

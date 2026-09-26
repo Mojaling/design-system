@@ -1,5 +1,6 @@
 * text=auto eol=lf
-# Windows 배치/스크립트는 CRLF여야 goto/label이 동작한다
-*.bat text eol=crlf
-*.cmd text eol=crlf
-*.vbs text eol=crlf
+# Windows 배치/스크립트는 CRLF여야 goto/label이 동작한다.
+# 줄바꿈 변환을 하지 않고(CRLF 그대로) 저장해서, ZIP으로 받아도 깨지지 않게 한다.
+*.bat -text
+*.cmd -text
+*.vbs -text
