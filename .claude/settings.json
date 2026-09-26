@@ -1,0 +1,48 @@
+{
+  "permissions": {
+    "ask": [
+      "Edit(/design-system.lint.json)",
+      "Edit(/eslint.config.mjs)",
+      "Edit(/.claude/**)"
+    ]
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/ensure-deps.mjs\"",
+            "timeout": 300,
+            "statusMessage": "의존성 확인 중..."
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/lint-edited-file.mjs\"",
+            "timeout": 120,
+            "statusMessage": "디자인 lint 검사 중..."
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/lint-on-stop.mjs\"",
+            "timeout": 300,
+            "statusMessage": "전체 lint 검사 중..."
+          }
+        ]
+      }
+    ]
+  }
+}

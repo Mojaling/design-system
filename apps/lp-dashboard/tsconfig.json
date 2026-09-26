@@ -1,0 +1,11 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "types": ["vite/client"],
+    "paths": {
+      "@/*": ["./web/src/*"],
+      "@workspace/ui/*": ["../../packages/ui/src/*"]
+    }
+  },
+  "include": ["web/src", "vite.config.ts"]
+}

@@ -1,0 +1,47 @@
+{
+  "rules": {
+    "shadcn/no-restyle": [
+      "error",
+      {
+        "allow": ["layout"],
+        "contracts": [
+          {
+            "pattern": "^(Button|Input)$",
+            "allow": ["layout"],
+            "deny": ["h-*", "min-h-*", "max-h-*", "size-*"],
+            "message": {
+              "layout": "\"{{className}}\": <{{component}}>의 높이는 size prop으로만 정합니다. 사용할 수 있는 size는 {{file}}에 있습니다."
+            }
+          },
+          {
+            "pattern": "^(CardHeader|CardContent|CardFooter|CardAction)$",
+            "allow": ["layout", "spacing"]
+          },
+          {
+            "pattern": "^(CardTitle|StatValue)$",
+            "allow": ["layout", "truncate"]
+          },
+          {
+            "pattern": "^Skeleton$",
+            "allow": ["layout", "rounded"]
+          }
+        ]
+      }
+    ],
+    "shadcn/no-raw-colors": "error",
+    "shadcn/no-arbitrary-values": "error",
+    "shadcn/no-inline-styles": "error",
+    "shadcn/require-static-classes": "error",
+    "shadcn/no-unknown-classes": "error"
+  },
+  "overrides": [
+    {
+      "files": ["packages/ui/src/components/**"],
+      "rules": {
+        "shadcn/no-restyle": "off",
+        "shadcn/no-arbitrary-values": "off",
+        "shadcn/require-static-classes": "off"
+      }
+    }
+  ]
+}

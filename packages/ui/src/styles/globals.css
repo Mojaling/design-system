@@ -1,0 +1,111 @@
+/*
+ * 디자인 시스템 토큰.
+ *
+ * 색·radius·폰트는 이 파일에서만 정의한다. 페이지나 컴포넌트에서
+ * bg-pink-500, text-[#ff007a] 같은 값을 쓰면 lint 에러가 난다.
+ * 새 색이 정말 필요하면 여기에 토큰을 추가하고, 추가했다고 보고할 것.
+ */
+@import "tailwindcss";
+
+/* 디자인 시스템 컴포넌트의 클래스도 Tailwind가 스캔하도록 */
+@source "../components";
+
+:root {
+  color-scheme: dark;
+
+  --background: oklch(0.155 0.012 275);
+  --foreground: oklch(0.965 0.004 275);
+
+  --card: oklch(0.2 0.014 275);
+  --card-foreground: oklch(0.965 0.004 275);
+
+  --muted: oklch(0.255 0.014 275);
+  --muted-foreground: oklch(0.7 0.016 275);
+
+  --secondary: oklch(0.275 0.016 275);
+  --secondary-foreground: oklch(0.965 0.004 275);
+
+  --accent: oklch(0.295 0.018 275);
+  --accent-foreground: oklch(0.985 0.002 275);
+
+  --border: oklch(0.3 0.014 275);
+  --input: oklch(0.34 0.014 275);
+  --ring: oklch(0.68 0.24 350);
+
+  /* 브랜드: 유니스왑 느낌의 핑크 */
+  --primary: oklch(0.68 0.24 350);
+  --primary-foreground: oklch(0.99 0 0);
+
+  /* 상태 */
+  --success: oklch(0.74 0.16 155);
+  --warning: oklch(0.8 0.15 80);
+  --destructive: oklch(0.66 0.21 25);
+  --destructive-foreground: oklch(0.99 0 0);
+  --info: oklch(0.72 0.14 245);
+
+  /* 보조 색 (뱃지 등) */
+  --violet: oklch(0.72 0.15 295);
+  --teal: oklch(0.76 0.12 190);
+
+  /* 구성비 바 등 데이터 표시용 */
+  --chart-1: oklch(0.68 0.24 350);
+  --chart-2: oklch(0.72 0.14 245);
+  --chart-3: oklch(0.76 0.12 190);
+  --chart-4: oklch(0.8 0.15 80);
+  --chart-5: oklch(0.72 0.15 295);
+
+  --radius: 0.75rem;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-info: var(--info);
+  --color-violet: var(--violet);
+  --color-teal: var(--teal);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+
+  --radius-sm: calc(var(--radius) - 6px);
+  --radius-md: calc(var(--radius) - 4px);
+  --radius-lg: calc(var(--radius) - 2px);
+  --radius-xl: var(--radius);
+  --radius-2xl: calc(var(--radius) + 4px);
+
+  --font-sans:
+    "Inter", "Pretendard", ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  --font-mono:
+    ui-monospace, "SFMono-Regular", "JetBrains Mono", Menlo, Consolas,
+    monospace;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background font-sans text-foreground antialiased;
+  }
+}

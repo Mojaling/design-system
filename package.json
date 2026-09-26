@@ -1,0 +1,33 @@
+{
+  "name": "design-system",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "engines": {
+    "node": ">=20.19"
+  },
+  "scripts": {
+    "dev": "npm run dev -w lp-dashboard",
+    "build": "npm run build -w lp-dashboard",
+    "start": "npm start -w lp-dashboard",
+    "lint": "eslint . --max-warnings 0",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "test": "npm run selftest -w lp-dashboard",
+    "verify": "npm run verify -w lp-dashboard",
+    "check": "npm run lint && npm run typecheck && npm test"
+  },
+  "devDependencies": {
+    "@eslint-community/eslint-plugin-eslint-comments": "^4.8.1",
+    "@eslint/js": "^10.0.1",
+    "@shadcn/lint": "^0.2.0",
+    "@typescript-eslint/parser": "^8.70.1",
+    "eslint": "^10.11.0",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "globals": "^17.12.0",
+    "typescript": "~5.9.3",
+    "typescript-eslint": "^8.70.1"
+  }
+}

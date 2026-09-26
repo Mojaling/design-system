@@ -1,0 +1,5 @@
+* text=auto eol=lf
+# Windows 배치/스크립트는 CRLF여야 goto/label이 동작한다
+*.bat text eol=crlf
+*.cmd text eol=crlf
+*.vbs text eol=crlf

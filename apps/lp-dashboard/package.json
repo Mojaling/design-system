@@ -1,0 +1,36 @@
+{
+  "name": "lp-dashboard",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Uniswap v4 / PancakeSwap v3 LP 포지션을 온체인에서 직접 조회하는 로컬 대시보드",
+  "scripts": {
+    "dev": "concurrently -k -n server,web -c blue,magenta \"node --watch-path=server server/index.js\" \"vite\"",
+    "build": "vite build",
+    "start": "node server/index.js",
+    "typecheck": "tsc -p tsconfig.json",
+    "selftest": "node scripts/selftest.js",
+    "verify": "node scripts/verify-addresses.js",
+    "pnl": "node scripts/analyze-pnl.js"
+  },
+  "dependencies": {
+    "express": "^5.2.1",
+    "viem": "^2.56.9",
+    "ws": "^8.21.3"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.3.3",
+    "@types/node": "^24.10.0",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.1.1",
+    "@workspace/ui": "*",
+    "concurrently": "^10.0.5",
+    "lucide-react": "^1.48.0",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "tailwindcss": "^4.3.3",
+    "typescript": "~5.9.3",
+    "vite": "^8.3.1"
+  }
+}
